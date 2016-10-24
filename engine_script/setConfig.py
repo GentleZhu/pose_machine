@@ -170,7 +170,9 @@ def cubeConfig(outfile,camera_settings,keypoints=None):
 
 
 if __name__ == "__main__":
-	outfile=open('/home/qi/Desktop/cvpr/Config_file/Realistic_rendering/config.json', 'w')
+        outfile_var = '../Realistic_rendering/config.json' 
+        print "Writing config file to: " + outfile_var
+	outfile=open(outfile_var, 'w')
 	#pt=keypointsConfig(model_path,1500,cluster_path)
 	camera_settings=dict()
 	camera_settings['id']='MainMap_CameraActor_Blueprint_C_0'

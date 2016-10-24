@@ -148,6 +148,8 @@ if __name__=="__main__":
 	world_center=[277.5,140.5,40]
 	#world_center=[0,0,46]
 	target='scissors1'
-	with open('/home/qi/Desktop/cvpr/Config_file/Office/block_animation_fps.json','w') as f:
+        outfile_var = '../Office/block_animation_fps.json'
+        print "Writing config file to: " + outfile_var
+	with open( outfile_var ,'w') as f:
 		#Look into module scene_generating for more details
 		animatorConfig(f,frame_count,diff_count,sg.scene_generate(diff_count,target,world_center))
