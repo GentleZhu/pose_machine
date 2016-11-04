@@ -5,7 +5,7 @@ import json
 import sys
 import math
 import numpy as np
-model_dir='/home/qi/Desktop/cvpr/models/'
+model_dir='../models/'
 
 def parseMinmax(string):
 	minmax=[]

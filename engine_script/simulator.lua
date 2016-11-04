@@ -19,7 +19,8 @@ local config = require 'config'
 local block
 
 --uetorch.SetFPS(8)
-JSON = assert(loadfile("/home/qi/Desktop/cvpr/lua_scripts/JSON.lua"))()
+--JSON = assert(loadfile("/home/qi/Desktop/cvpr/lua_scripts/JSON.lua"))()
+JSON = assert(loadfile("./JSON.lua"))()
 --SetCurrentIteration(3)
 
 local currentIteration = 0
@@ -82,7 +83,8 @@ local function SaveScreen(dt)
 		--print(target)
 		--local i2 = uetorch.ObjectSegmentation(target, 1)
 		if i2 then
-			torch.save('/home/qi/Desktop/'..'batch' .. currentIteration .. '_' .. step .. '.t7', i2)
+			--torch.save('/home/qi/Desktop/'..'batch' .. currentIteration .. '_' .. step .. '.t7', i2)
+			torch.save('../'..'batch' .. currentIteration .. '_' .. step .. '.t7', i2)
 			--image.save(file,i2)
 		end
 
@@ -212,13 +214,15 @@ function SetCurrentIteration(iteration)
 
 	else
 		calibration = true
+                --@todo make simulator_params.json a parameter; this sets camera parameters
 		local file = assert(io.open(config.GetDataPath() .. 'jsondata/' .. 'simulator_params.json', "r"))
 		simulator_params=JSON:decode(file:read('*all'))
 		file.close()
 		--actually block_animation can have multiple batch-ID.json
 
-		--file = assert(io.open('/home/qi/Desktop/cvpr/Config_file/Realistic_rendering/' .. batch['batchID'] .. '.json', "r"))
-		file = assert(io.open('/home/qi/Desktop/cvpr/Config_file/Office/' .. batch['batchID'] .. '.json', "r"))
+                --@todo make batchXX.json's path a parameter; 
+		file = assert(io.open('../Realistic_rendering/' .. batch['batchID'] .. '.json', "r"))
+		--file = assert(io.open('/home/qi/Desktop/cvpr/Config_file/Office/' .. batch['batchID'] .. '.json', "r"))
 		block = require(batch['batchID'])
 		animator = JSON:decode(file:read('*all'))
 		file.close()

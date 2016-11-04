@@ -5,7 +5,8 @@ import math
 import numpy as np
 import scene_generating as sg
 
-model_path='/home/qi/Desktop/cvpr/models/scissors4.model'
+_MODEL_FILENAME ='../models/scissors4.model'
+_BLOCK_ANIMATION_FILENAME = '../Realistic_rendering/block_animation_fps.json'
 
 #Same as UE4 settings,Coordinate XZY
 def rotation2ypl(rot):
@@ -40,10 +41,10 @@ def getUE4Rotation(yaw,pitch,roll):
 	R_pitch=np.array([[math.cos(p),0,math.sin(p)],[0,1,0],[-math.sin(p),0,math.cos(p)]])
 	return reduce(np.dot, [R_yaw,R_pitch,R_roll])
 
-#Params: --model_path xxx.model --diff_count #articulation pose
+#Params: --_MODEL_FILENAME xxx.model --diff_count #articulation pose
 #Outputs: --pose rotated keypoints --rotation articulation_pose --oid object_id
-def articulateConfig(model_path,diff_count):
-	with open(model_path,'r') as f:
+def articulateConfig(_MODEL_FILENAME,diff_count):
+	with open(_MODEL_FILENAME,'r') as f:
 		content = f.read()
 	f.close()
 	model=json.loads(content)
@@ -72,8 +73,8 @@ def articulateConfig(model_path,diff_count):
 	return pose,rotation,oid
 
 #Configure rigid object keypoints, support keypoints cluster
-def keypointsConfig(model_path,scale,cluster_path=None):
-	f = open ( model_path , 'r')
+def keypointsConfig(_MODEL_FILENAME,scale,cluster_path=None):
+	f = open ( _MODEL_FILENAME , 'r')
 	keypoint=[]
 	for line in f:
 		for w in line.split(' '):
@@ -115,7 +116,7 @@ def Dot(A,B):
 def animatorConfig(outfile,frame_count,diff_count,obj_location):
 	config=[]
 	#Now one object is considered
-	pose,rot,oid=articulateConfig(model_path,diff_count)
+	pose,rot,oid=articulateConfig(_MODEL_FILENAME,diff_count)
 
 	rotation=np.random.random([frame_count,3])*360
 	for p in range(diff_count):
@@ -148,8 +149,7 @@ if __name__=="__main__":
 	world_center=[277.5,140.5,40]
 	#world_center=[0,0,46]
 	target='scissors1'
-        outfile_var = '../Office/block_animation_fps.json'
-        print "Writing config file to: " + outfile_var
-	with open( outfile_var ,'w') as f:
+        print "Writing config file to: " + _BLOCK_ANIMATION_FILENAME
+	with open(_BLOCK_ANIMATION_FILENAME ,'w') as f:
 		#Look into module scene_generating for more details
 		animatorConfig(f,frame_count,diff_count,sg.scene_generate(diff_count,target,world_center))

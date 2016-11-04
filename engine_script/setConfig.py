@@ -3,12 +3,19 @@
 import json
 import math
 import numpy as np
+import sys
+
+# these don't appear to be used anymore
 #Write a dict, which record different objects
-model_path='/home/qi/Desktop/cvpr/models/scissors_1.txt'
-cluster_path='/home/qi/Desktop/cvpr/scripts/scissors_1_cluster'
+#model_path='/home/qi/Desktop/cvpr/models/scissors_1.txt'
+#cluster_path='/home/qi/Desktop/cvpr/scripts/scissors_1_cluster'
+
+_CONFIG_FILENAME = '../Realistic_rendering/config.json' 
+
 def cameraConfig(outfile):
 	config=dict()
-	config['dataPath']='/home/qi/Desktop/cvpr/data/'
+	#config['dataPath']='/home/qi/Desktop/cvpr/data/'
+	config['dataPath']='../data/'
 	config['scene']='BluePrint'
 	config['sceneTime']=3
 	config['batchID']='camera_calibration'
@@ -81,7 +88,8 @@ def keypointsConfig(model_path,scale,cluster_path=None):
 def cubeConfig(outfile,camera_settings,keypoints=None):
 	#default for single object, need to be fixed for multiple object
 	config=dict()
-	config['dataPath']='/home/qi/Desktop/cvpr/data/'
+	#config['dataPath']='/home/qi/Desktop/cvpr/data/'
+	config['dataPath']='../data/'
 	config['scene']='BluePrint'
 	config['sceneTime']=203
 	config['objects']=list()
@@ -170,9 +178,10 @@ def cubeConfig(outfile,camera_settings,keypoints=None):
 
 
 if __name__ == "__main__":
-        outfile_var = '../Realistic_rendering/config.json' 
-        print "Writing config file to: " + outfile_var
-	outfile=open(outfile_var, 'w')
+        if ( len( sys.argv ) >= 2 ):
+          _CONFIG_FILENAME = sys.argv[1]
+        print "Writing config file to: " + _CONFIG_FILENAME
+	outfile=open(_CONFIG_FILENAME, 'w')
 	#pt=keypointsConfig(model_path,1500,cluster_path)
 	camera_settings=dict()
 	camera_settings['id']='MainMap_CameraActor_Blueprint_C_0'

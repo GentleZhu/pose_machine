@@ -4,7 +4,7 @@ This script fetch configurations from config.json
 --]]
 
 local config = {}
-JSON = assert(loadfile("/home/qi/Desktop/cvpr/lua_scripts/JSON.lua"))()
+JSON = assert(loadfile("./JSON.lua"))()
 conf={}
 conf['dataPath'] = '/home/qi/Desktop/cvpr/data/'
 conf['screenCaptureInterval'] = 2
