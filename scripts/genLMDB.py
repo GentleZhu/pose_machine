@@ -9,7 +9,7 @@ import lmdb
 import caffe
 import os.path
 import struct
-json_path='../data/jsondata/scissors1_exp3_stage3_2.json'
+json_path='../data/jsondata/scissors2_exp1.json'
 def writeLMDB(datasets, lmdb_path, validation):
 	env = lmdb.open(lmdb_path, map_size=int(1e12))
 	
@@ -188,6 +188,6 @@ if __name__ == "__main__":
 	#writeLMDB(['MPI'], 'lmdb/MPI_train_split', 1) # only include split training data (validation data is held out)
 	#writeLMDB(['MPI'], 'lmdb/MPI_alltrain', 0)
 	#writeLMDB(['LEEDS'], 'lmdb/LEEDS_PC', 0)
-	writeLMDB(['UE4'], '../UE4/lmdb_scissors1_exp3_2', 0)
+	writeLMDB(['UE4'], '../UE4/lmdb_scissors2_exp1', 0)
 
 	#writeLMDB(['MPI', 'LEEDS'], 'lmdb/MPI_LEEDS_alltrain', 0) # joint dataset
